@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Modifications and updates started on 2018/$today.mount/22, by programmer Jonn Alves, about the Naville Brasil contract.
+  -->
+
+<resources>
+
+      <style name="DialogFullscreen" parent="@android:style/Theme.Material.Light.DialogWhenLarge">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+</resources>
