@@ -1,21 +1,35 @@
 package com.quanticheart.camerapreview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.parsaniahardik.custom_camera.R;
 import com.quanticheart.camerapreview.CustomView.CamPreview;
 import com.quanticheart.camerapreview.Util.DialogUtils;
+import com.quanticheart.camerapreview.Util.ImageUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CameraPreview extends AppCompatActivity {
 
@@ -202,16 +216,21 @@ public class CameraPreview extends AppCompatActivity {
 
     private Camera.PictureCallback getPictureCallback() {
         Camera.PictureCallback picture = new Camera.PictureCallback() {
+
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
-                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                Intent intent = new Intent(CameraPreview.this, PictureActivity.class);
-//                startActivity(intent);
-                openDialog(bitmap);
+
+                ImageUtils.createBitmap(CameraPreview.this, data);
+//                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+////                Intent intent = new Intent(CameraPreview.this, PictureActivity.class);
+////                startActivity(intent);
+
             }
         };
         return picture;
     }
+
+
 
     //==============================================================================================
     //
@@ -239,18 +258,5 @@ public class CameraPreview extends AppCompatActivity {
         releaseCamera();
     }
 
-    //==============================================================================================
-    //
-    // ** Dialog
-    //
-    //==============================================================================================
 
-    private void openDialog(Bitmap bitmap) {
-
-        View view = DialogUtils.getView(CameraPreview.this, R.layout.dialog_ok);
-
-
-
-        DialogUtils.openDialogFullScreen(CameraPreview.this, view);
-    }
 }
